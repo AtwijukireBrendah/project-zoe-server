@@ -18,20 +18,17 @@ import { LoginResponseDto } from "./dto/login-response.dto";
 @Injectable()
 export class AuthService {
 
-	private readonly rolesRepository: Repository<Roles>
-
+	 private readonly rolesRepository: Repository<Roles>
   constructor(
-    // @InjectRepository(Roles)
-    // private readonly rolesRepository: Repository<Roles>,
+   
 	@Inject("CONNECTION")
-	private readonly connection: Connection,
+	private readonly connection:Connection,
     private readonly usersService: UsersService,
     private readonly jwtHelperService: JwtHelperService,
     private readonly jwtService: JwtService,
   ) {
-	
-	this.rolesRepository = connection.getRepository(Roles)
 
+	this.rolesRepository = connection.getRepository(Roles)
   }
 
   async validateUser(username: string, pass: string): Promise<UserDto | null> {
