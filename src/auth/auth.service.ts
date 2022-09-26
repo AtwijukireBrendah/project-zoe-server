@@ -9,7 +9,7 @@ import { UpdateUserDto } from "../users/dto/update-user.dto";
 import { JwtHelperService } from "./jwt-helpers.service";
 import { UserListDto } from "src/users/dto/user-list.dto";
 import Roles from "src/users/entities/roles.entity";
-import { In, Repository } from "typeorm";
+import { Connection, In, Repository } from "typeorm";
 import { Inject } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { JwtService } from "@nestjs/jwt";
@@ -17,13 +17,22 @@ import { LoginResponseDto } from "./dto/login-response.dto";
 
 @Injectable()
 export class AuthService {
+
+	private readonly rolesRepository: Repository<Roles>
+
   constructor(
-    @InjectRepository(Roles)
-    private readonly rolesRepository: Repository<Roles>,
+    // @InjectRepository(Roles)
+    // private readonly rolesRepository: Repository<Roles>,
+	@Inject("CONNECTION")
+	private readonly connection: Connection,
     private readonly usersService: UsersService,
     private readonly jwtHelperService: JwtHelperService,
     private readonly jwtService: JwtService,
-  ) {}
+  ) {
+	
+	this.rolesRepository = connection.getRepository(Roles)
+
+  }
 
   async validateUser(username: string, pass: string): Promise<UserDto | null> {
     const user = await this.usersService.findByName(username);
@@ -31,14 +40,12 @@ export class AuthService {
       Logger.warn("invalid username: ", username);
       return null;
     }
-    console.log("Check if user is active", user.isActive);
     if (!user.isActive) {
       Logger.warn("User Inactive", username);
       return null;
     }
     const roles = [];
     user.userRoles.forEach((it) => roles.push(...it.roles.permissions));
-    console.log("Check if user is active", user.isActive);
     const valid = await user.validatePassword(pass);
     if (valid) {
       cleanUpUser(user);

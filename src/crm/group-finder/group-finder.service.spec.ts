@@ -33,7 +33,6 @@ describe('GroupFinderService', () => {
       parentGroupId: 1,
       placeId: '',
     });
-    console.log(data);
     expect(data.length).toEqual(2);
   });
 });

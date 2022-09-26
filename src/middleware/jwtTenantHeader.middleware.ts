@@ -11,6 +11,7 @@ export class JwtTenantHeaderMiddleware implements NestMiddleware {
   async use(req: any, res: any, next: () => void) {
     // @TODO Check if req.headers.authorization exists. Throw error if not
     const jwtToken = req.headers.authorization.slice(7);
+	
     const tokenPayload = await this.jwtService.decodeToken(jwtToken);
     const tenant =
       tokenPayload && tokenPayload.hasOwnProperty("aud")

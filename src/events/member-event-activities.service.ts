@@ -28,14 +28,12 @@ export class MemberEventActivitiesService {
 
       toSave.contactId = data.contactId[i];
 
-      console.log(toSave);
       const member = await this.repository.save(toSave);
     }
     return data;
   }
 
   async findAll(): Promise<any> {
-    console.log("finding all");
     const allActivities = await this.eventActivityrepository.find({});
 
     const toDto = [];
@@ -72,7 +70,6 @@ export class MemberEventActivitiesService {
   async update(
     data: UpdateMemberEventActivitiesDto,
   ): Promise<UpdateMemberEventActivitiesDto | any> {
-    console.log("updating members", data.memberIds);
     for (let i = 0; i < data.memberIds.length; i++) {
       await this.repository.delete(data.memberIds[i]);
     }
@@ -80,7 +77,6 @@ export class MemberEventActivitiesService {
   }
 
   async remove(id: number): Promise<void> {
-    console.log("removing an member from an activity");
     await this.repository.delete(id);
   }
 }

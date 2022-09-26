@@ -33,7 +33,6 @@ describe('UsersService', () => {
     user.contactId = 1;
     user.isActive = true;
     const created = await service.create(user);
-    console.log('Created', created);
     expect(created.id).toBeDefined();
   });
 });

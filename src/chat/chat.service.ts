@@ -20,7 +20,6 @@ export class ChatService {
           select: ["value"],
           where: [{ contactId: data.recipientId[i] }],
         });
-        //console.log(mailAddress[0].value); //Getting email(value) from varible
         this.sendMailToMember(mailAddress[0].value, data.subject, data.body);
       }
     } catch (error) {

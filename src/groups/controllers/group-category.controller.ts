@@ -46,7 +46,6 @@ export class GroupCategoryController {
 
   @Delete(":id")
   async remove(@Param("id") id: string): Promise<void> {
-    console.log("*****", id);
     await this.service.remove(id);
   }
 }

@@ -6,7 +6,6 @@ const removeEmptySpaces = (str?: string) => {
   try {
     return str.replace(/\s+/g, ' ').trim();
   } catch (e) {
-    console.log('Invalid text', str);
   }
 };
 
@@ -34,7 +33,6 @@ export const parseName = (name?: string): Name | null => {
       lastName: middleName,
     };
   } catch (e) {
-    console.log('Invalid name', name);
     return null;
   }
 };
@@ -45,7 +43,6 @@ export const parseGender = (value?: string): Gender | null => {
     if (clean === 'male' || clean === 'm') return Gender.Male;
     if (clean === 'female' || clean === 'f') return Gender.Female;
   } catch (e) {
-    console.log('Invalid Gender', value);
     return null;
   }
 };

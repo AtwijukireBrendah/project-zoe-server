@@ -14,7 +14,6 @@ export class EventActivitiesService {
   }
 
   async create(data: EventActivity): Promise<EventActivity> {
-    //console.log(data);
     const result = await this.repository
       .createQueryBuilder()
       .insert()
@@ -23,7 +22,6 @@ export class EventActivitiesService {
         eventId: data.eventId,
       })
       .execute();
-    console.log(result);
     Logger.log("Event Activity added successfully");
 
     return data;
@@ -31,7 +29,6 @@ export class EventActivitiesService {
 
   //Get all activities.
   async findAll(): Promise<CreateEventActivityDto[]> {
-    console.log("findin all");
     const data = await this.repository.find({
       relations: ["event"],
     });
@@ -58,7 +55,6 @@ export class EventActivitiesService {
     return await this.findOne(dto.id);
   }
   async remove(id: number): Promise<void> {
-    console.log("removing an activity");
     await this.repository.delete(id);
   }
 }

@@ -136,7 +136,6 @@ export class ContactsService {
           select: ["contactId"],
           where: { value: Like(`%${req.phone}%`) },
         });
-        console.log("resp", resp);
         if (hasValue(idList)) {
           idList = intersection(
             idList,
@@ -164,7 +163,6 @@ export class ContactsService {
         }
       }
 
-      console.log("IdList", idList);
       if (hasFilter && hasNoValue(idList)) {
         return [];
       }
@@ -271,7 +269,6 @@ export class ContactsService {
         }
       }
     } catch (e) {
-      console.log("Failed to attach to group");
     }
   }
 
@@ -337,7 +334,6 @@ export class ContactsService {
         distance: leastDistance,
       };
     } catch (e) {
-      console.log(e);
       Logger.error("Failed to create member request", e);
       return [];
     }

@@ -80,7 +80,6 @@ export class GroupsService {
   }
 
   async combo(req: GroupSearchDto): Promise<Group[]> {
-    console.log("GroupSearchDto", req);
     const findOps: FindConditions<Group> = {};
     if (hasValue(req.categories)) {
       findOps.categoryId = In(req.categories);
@@ -88,7 +87,6 @@ export class GroupsService {
     if (hasValue(req.query)) {
       findOps.name = ILike(`%${req.query}%`);
     }
-    console.log("findOps", findOps);
     return await this.treeRepository.find({
       select: ["id", "name", "categoryId", "parent"],
       where: findOps,
@@ -197,7 +195,6 @@ export class GroupsService {
       parentGroup = await this.treeRepository.findOne(dto.parentId);
     }
 
-    console.log(`Update.Group Id:${dto.parentId} parentGroup: `, parentGroup);
     const result = await this.repository
       .createQueryBuilder()
       .update(Group)

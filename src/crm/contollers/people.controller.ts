@@ -121,7 +121,6 @@ export class PeopleController {
   @Post("upload")
   @UseInterceptors(FileInterceptor("file"))
   async upload(@UploadedFile() file) {
-    console.log(file);
   }
 
   @Put()
